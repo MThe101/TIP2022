@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  service-api:
+    image: bharatmalik/service-api
+    build:
+      context: ./service-processor
+  idgen-api:
+    image: bharatmalik/idgen-api
+    build:
+      context: ./id-gen      
+  responsegen-api:
+    image: bharatmalik/responsegen-api
+    build:
+      context: ./response-generator    
+  configurator:
+    image: bharatmalik/configurator
+    build:
+      context: ./configurator

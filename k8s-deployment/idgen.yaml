@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: idgenapp
+  labels:
+    app: idgen
+spec:
+  selector:
+    app: idgen
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8088
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idgenapp
+  labels:
+    app: idgen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: idgen
+  template:
+    metadata:
+      labels:
+        app: idgen
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "idgenapp"
+        dapr.io/app-port: "8088"
+        dapr.io/log-level: "debug"
+    spec:
+      containers:
+      - name: node
+        image: bharatmalik/idgen-api:latest
+        ports:
+        - containerPort: 8088
+        imagePullPolicy: Always

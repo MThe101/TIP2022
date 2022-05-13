@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: responsegenapp
+  labels:
+    app: responsegen
+spec:
+  selector:
+    app: responsegen
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8088
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: responsegenapp
+  labels:
+    app: responsegen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: responsegen
+  template:
+    metadata:
+      labels:
+        app: responsegen
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "responsegenapp"
+        dapr.io/app-port: "8088"
+        dapr.io/log-level: "debug"
+    spec:
+      containers:
+      - name: node
+        image: bharatmalik/responsegen-api:latest
+        ports:
+        - containerPort: 8088
+        imagePullPolicy: Always
