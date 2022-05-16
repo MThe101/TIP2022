@@ -42,12 +42,6 @@ All services should show True in the HEALTHY column and Running in the STATUS co
  dapr dashboard -k -p 9999
  ```
 
-- Create namespace for redis if the helm install cannot find the namespace
-
-``` bash
-kubectl create namespace redis
-```
-
 - Install Redis for pubsub
 
 ``` bash 
