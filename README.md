@@ -44,17 +44,25 @@ All services should show True in the HEALTHY column and Running in the STATUS co
 
 - Install Redis for pubsub
 
+``` bash 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install -n redis staging bitnami/redis-cluster
+```
 
 - Install Mongo DB for logs collection 
-helm install my-release bitnami/mongodb
 
+``` bash 
+helm install my-release bitnami/mongodb
+```
 - Build Services
 
+``` bash 
 docker-compose build --pull
 docker-compose push
+```
 
 - Run App on K8S
 
+``` bash 
 kubectl apply -f ../k8s-deployment/
+```
