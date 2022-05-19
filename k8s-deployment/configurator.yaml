@@ -9,7 +9,7 @@ spec:
     app: configurator
   ports:
   - protocol: TCP
-    port: 8081
+    port: 8082
     targetPort: 8088
   type: LoadBalancer
 

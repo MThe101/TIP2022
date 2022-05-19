@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.au.swinburne.dapr.config.ServiceConstants;
-import com.au.swinburne.responsegen.dapr.constants.ResponseGeneratorConstants;
 
 import io.dapr.client.DaprClient;
 import io.dapr.client.DaprClientBuilder;
@@ -30,7 +29,7 @@ public class ConfigService {
 		List<String> keys = ServiceConstants.KEYS;
         List<State<String>> resultBulk = null;
     	try (DaprClient client = (new DaprClientBuilder()).build()) {
-            String STATE_STORE_NAME = "serviceconfigstore";
+            String STATE_STORE_NAME = "configstore";
             resultBulk = client.getBulkState(STATE_STORE_NAME, keys, String.class).block();
     	}
     	log.info("configs retrieved, size= {})",resultBulk.size());

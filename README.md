@@ -1,5 +1,7 @@
 # DAPR-SIMULATOR
 
+![](./image/DAPR_design.png)
+
 ## Project information
 
 - The version of programming languages
@@ -58,3 +60,35 @@ docker-compose push
 - Run App on K8S
 
 kubectl apply -f ../k8s-deployment/
+
+
+## API Gateway
+
+The Simulator uses three APIs internally. In production, the number of APIs could substantially increase in real time. The app uses Nginx Ingress controller configured with a Sidecar and routing rules to route the API by an ingress config file.
+Follow below steps to configure gateway from the k8s-deployment folder
+
+```bash 
+helm install nginx-ingress ingress-nginx/ingress-nginx -f dapr-annotations.yaml --set controller.replicaCount=2
+```
+
+Validate the nginx controller are configured
+
+```bash
+kubectl get pods
+```
+Configure the ingress rules
+
+``` bash
+kubectl create -f ingress.yaml
+```
+
+## Controller Advice
+
+The APIs are built with springboot/JAVA and uses controller advice to cater to exception handling. Controller Advice is a springboot feature which is an extension of component and intercept the exception generated from anywhere in the application and standardize the response as per interface to provide a bettwe user experience.
+
+## Hystrix
+
+DAPR supports Netflix's hystrix as a popular circuit breaker framework. It provides a handle on the latency and downstream systems failure. 
+
+![](./image/k8s-dashboard.png)
+

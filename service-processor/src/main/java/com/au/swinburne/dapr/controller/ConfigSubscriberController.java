@@ -30,7 +30,7 @@ public class ConfigSubscriberController {
 	        String id = cloudEvent.getId();
 	        ConfigEvent configEvent = OBJECT_MAPPER.convertValue(cloudEvent.getData(), ConfigEvent.class);
 	        try (DaprClient client = (new DaprClientBuilder()).build()) {
-	            String STATE_STORE_NAME = "serviceconfigstore";
+	            String STATE_STORE_NAME = "configstore";
 	            client.saveState(STATE_STORE_NAME, configEvent.getKey(), configEvent.getValue()).block();
 	    	}
 	      } catch (Exception e) {

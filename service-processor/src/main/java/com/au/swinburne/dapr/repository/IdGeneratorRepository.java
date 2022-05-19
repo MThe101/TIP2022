@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.au.swinburne.dapr.dto.IdGeneratorResponse;
 import com.au.swinburne.dapr.service.ConfigService;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import io.dapr.client.DaprClient;
 import io.dapr.client.domain.HttpExtension;
@@ -19,6 +20,7 @@ public class IdGeneratorRepository {
     private final ConfigService configService;
 
 
+//    @HystrixCommand(commandKey = "getId")
 	public IdGeneratorResponse getId() {
 		
         Map<String, String> configMap = configService.getConfigMap();

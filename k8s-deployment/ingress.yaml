@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-dapr
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: api.example.com
+    http:
+      paths:
+      - path: /config(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: configuratorapp
+            port:
+              number: 8082
+      - path: /app(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: springapp
+            port:
+              number: 8081              

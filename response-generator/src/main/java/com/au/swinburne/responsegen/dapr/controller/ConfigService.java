@@ -29,7 +29,7 @@ public class ConfigService {
 		List<String> keys = ResponseGeneratorConstants.KEYS;
         List<State<Integer>> resultBulk = null;
     	try (DaprClient client = (new DaprClientBuilder()).build()) {
-            String STATE_STORE_NAME = "responseconfigstore";
+            String STATE_STORE_NAME = "configstore";
             resultBulk = client.getBulkState(STATE_STORE_NAME, keys, Integer.class).block();
     	}
     	log.info("configs retrieved, size= {})",resultBulk.size());
